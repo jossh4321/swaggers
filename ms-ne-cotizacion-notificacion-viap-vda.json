@@ -1,0 +1,1142 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "MS Cotizacion Notificacion",
+        "description": "Servicio generador de PDF de Cotizacion.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9091/ms-ne-cotizacion-notificacion-viap-vda/cotizacion/v1",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/enviar/solicitud-vdt": {
+            "post": {
+                "tags": [
+                    "notification-controller"
+                ],
+                "summary": "Envia Mailing Solicitud VDT",
+                "description": "Envia un correo con los datos de la solicitud del VDT y link del PDF adjunto,  atravez de una comunicacion de Dana.",
+                "operationId": "sendComunicationApplicationPolicyVdt",
+                "parameters": [
+                    {
+                        "name": "idTransaccion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nombreAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "usuarioAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "procesoNegocio",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "idCorrelativo",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SendAplicationPolicyVdtRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/enviar/solicitud-poliza": {
+            "post": {
+                "tags": [
+                    "notification-controller"
+                ],
+                "summary": "Envia Mailing Solicitud VIB",
+                "description": "Genera el PDF de Solicitud de Poliza VIB y lo envia por correo atravez de una comunicacion de Dana.",
+                "operationId": "sendComunicationWithPolicyApplicationAttachment",
+                "parameters": [
+                    {
+                        "name": "idTransaccion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nombreAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "usuarioAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "procesoNegocio",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "idCorrelativo",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GeneratePolicyApplicationFileRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/enviar/cotizacion-vdt": {
+            "post": {
+                "tags": [
+                    "notification-controller"
+                ],
+                "summary": "Envia Mailing Cotizacion VDT",
+                "description": "Envia un correo con los datos de la cotizacion del VDT atravez de una comunicacion de Dana.",
+                "operationId": "sendComunicationQuotationVdt",
+                "parameters": [
+                    {
+                        "name": "idTransaccion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nombreAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "usuarioAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "procesoNegocio",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "idCorrelativo",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SendQuotationVdtRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/generar/{idCotizacion}": {
+            "get": {
+                "tags": [
+                    "notification-controller"
+                ],
+                "summary": "Generador Pdf Cotizacion VIB",
+                "description": "Genera el PDF de cotizacion del VIB.",
+                "operationId": "generatePdfFile",
+                "parameters": [
+                    {
+                        "name": "idCotizacion",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "idTransaccion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nombreAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "usuarioAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "procesoNegocio",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "correlativoId",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QuotationFile"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/enviar/{idCotizacion}": {
+            "get": {
+                "tags": [
+                    "notification-controller"
+                ],
+                "summary": "Envia Mailing Cotizacion VIB",
+                "description": "Genera el PDF de cotizacion y lo envia por correo atravez de una comunicacion de Dana.",
+                "operationId": "sendComunicationWithAttachment",
+                "parameters": [
+                    {
+                        "name": "idCotizacion",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "idTransaccion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nombreAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "usuarioAplicacion",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z\\-0-9]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "procesoNegocio",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "pattern": "^[a-zA-Z-]+$",
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "correlativoId",
+                        "in": "header",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string",
+                        "enum": [
+                            "INFO",
+                            "DEBUG",
+                            "WARN",
+                            "FATAL",
+                            "ERROR"
+                        ]
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "externalDescription": {
+                        "type": "string"
+                    },
+                    "legacyCode": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "CoverageRequest": {
+                "required": [
+                    "id",
+                    "nombre"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "pattern": "^(1|2|3|5|9)$",
+                        "type": "string",
+                        "description": "Id de la cobertura.",
+                        "example": "1"
+                    },
+                    "nombre": {
+                        "type": "string",
+                        "description": "Nombre de la cobertura.",
+                        "example": "Muerte accidental"
+                    },
+                    "sumaAsegurada": {
+                        "type": "integer",
+                        "description": "Suma asegurada de la cobertura adicional.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "prima": {
+                        "type": "number",
+                        "description": "Prima de la cobertura adicional.",
+                        "format": "double",
+                        "example": 34.78
+                    }
+                },
+                "description": "Lista de coberturas adicionales.",
+                "example": []
+            },
+            "SendAplicationPolicyVdtRequest": {
+                "required": [
+                    "beneficiarios",
+                    "codigoProducto",
+                    "correo",
+                    "fechaNacimiento",
+                    "fechaVenta",
+                    "modalidadPago",
+                    "montoRetiro",
+                    "nombreCompleto",
+                    "numeroTarjeta",
+                    "porcentajeTotal",
+                    "primaComercial",
+                    "primerNombre",
+                    "sumaAseguradaFallecimiento"
+                ],
+                "type": "object",
+                "properties": {
+                    "tipoDocumento": {
+                        "pattern": "^(DNI|CE|PASAPORTE)$",
+                        "type": "string",
+                        "description": "Tipo de documento del contratante.",
+                        "example": "DNI"
+                    },
+                    "primerNombre": {
+                        "type": "string",
+                        "description": "Primer nombre del contratante.",
+                        "example": "Pedro"
+                    },
+                    "nombreCompleto": {
+                        "type": "string",
+                        "description": "Nombre completo del contratante.",
+                        "example": "Pedro Sanchez Baca"
+                    },
+                    "numeroDocumento": {
+                        "pattern": "^\\d{8,15}$",
+                        "type": "string",
+                        "description": "Numero de Documento del contratante.",
+                        "example": "74201182"
+                    },
+                    "numeroSolicitud": {
+                        "pattern": "^\\d{4,9}$",
+                        "type": "string",
+                        "description": "Numero de Solicitud de Poliza.",
+                        "example": "5645534"
+                    },
+                    "fechaNacimiento": {
+                        "type": "string",
+                        "description": "Fecha de Nacimiento del contratante.",
+                        "format": "date",
+                        "example": "1998-10-12"
+                    },
+                    "sexo": {
+                        "pattern": "^(Hombre|Mujer)$",
+                        "type": "string",
+                        "description": "Sexo biologico del contratante.",
+                        "example": "Hombre"
+                    },
+                    "telefono": {
+                        "pattern": "^(9\\d{8})$",
+                        "type": "string",
+                        "description": "Telefono del contratante.",
+                        "example": "942396369"
+                    },
+                    "direccion": {
+                        "type": "string",
+                        "description": "Direccion del contratante.",
+                        "example": "Av las camelias 165 - San Isidro"
+                    },
+                    "peso": {
+                        "pattern": "^([1-9][0-9]\\.[0-9])$",
+                        "type": "string",
+                        "description": "Peso del contratante.",
+                        "example": "80.5"
+                    },
+                    "talla": {
+                        "pattern": "^(1\\.[0-9]{2})$",
+                        "type": "string",
+                        "description": "Talla del contratante.",
+                        "example": "1.75"
+                    },
+                    "obligacionFiscal": {
+                        "pattern": "^(SI|NO)$",
+                        "type": "string",
+                        "description": "Obligacion fiscal en pais extranjero.",
+                        "example": "SI"
+                    },
+                    "pais": {
+                        "type": "string",
+                        "description": "Pais de nacimiento.",
+                        "example": "Perú"
+                    },
+                    "coberturas": {
+                        "type": "array",
+                        "description": "Lista de coberturas adicionales.",
+                        "example": [],
+                        "items": {
+                            "$ref": "#/components/schemas/CoverageRequest"
+                        }
+                    },
+                    "correo": {
+                        "type": "string",
+                        "description": "Email del cliente",
+                        "example": "josuecd98@outlook.com"
+                    },
+                    "sumaAseguradaFallecimiento": {
+                        "maximum": 500000,
+                        "minimum": 100000,
+                        "type": "integer",
+                        "description": "Suma asegurada en caso de fallecimiento.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "beneficioMuerteNatural": {
+                        "type": "integer",
+                        "description": "Beneficio de Muerte Natural.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "beneficioMuerteAccidental": {
+                        "type": "integer",
+                        "description": "Beneficio de Muerte Accidental.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "beneficioInvalidezAccidental": {
+                        "type": "integer",
+                        "description": "Beneficio de Invalidez Accidental.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "beneficioEnfermedad": {
+                        "type": "integer",
+                        "description": "Benefico por enfermedad.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "beneficioExoneracionPrimas": {
+                        "type": "integer",
+                        "description": "Benefico por exoneracion de primas.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "plazoContratacion": {
+                        "pattern": "^(5|7|10|12|15|20)$",
+                        "type": "string",
+                        "description": "Plazo de Contratacion.",
+                        "example": "7"
+                    },
+                    "primaComercial": {
+                        "type": "number",
+                        "description": "Prima Comercial.",
+                        "format": "double",
+                        "example": 10.57
+                    },
+                    "montoRetiro": {
+                        "type": "number",
+                        "description": "Monto de retiro al final del periodo.",
+                        "format": "double",
+                        "example": 10400
+                    },
+                    "beneficiario1": {
+                        "pattern": "^([\\w\\s]{0,20}[\\|]{1}){4}(\\d){1,2}$",
+                        "type": "string",
+                        "description": "Primer Beneficiario.",
+                        "example": "Marquez|Jimenez|Arian Daniel|Hijo|50"
+                    },
+                    "beneficiario2": {
+                        "pattern": "^([\\w\\s]{0,20}[\\|]{1}){4}(\\d){1,2}$",
+                        "type": "string",
+                        "description": "Segundo Beneficiario.",
+                        "example": "Marquez|Jimenez|Arian Daniel|Hijo|50"
+                    },
+                    "beneficiario3": {
+                        "pattern": "^([\\w\\s]{0,20}[\\|]{1}){4}(\\d){1,2}$",
+                        "type": "string",
+                        "description": "Tercer Beneficiario.",
+                        "example": "Marquez|Jimenez|Arian Daniel|Hijo|50"
+                    },
+                    "beneficiario4": {
+                        "pattern": "^([\\w\\s]{0,20}[\\|]{1}){4}(\\d){1,2}$",
+                        "type": "string",
+                        "description": "Cuarto Beneficiario.",
+                        "example": "Marquez|Jimenez|Arian Daniel|Hijo|50"
+                    },
+                    "beneficiario5": {
+                        "pattern": "^([\\w\\s]{0,20}[\\|]{1}){4}(\\d){1,2}$",
+                        "type": "string",
+                        "description": "Quinto Beneficiario.",
+                        "example": "Marquez|Jimenez|Arian Daniel|Hijo|50"
+                    },
+                    "beneficiario6": {
+                        "pattern": "^([\\w\\s]{0,20}[\\|]{1}){4}(\\d){1,2}$",
+                        "type": "string",
+                        "description": "Sexto Beneficiario.",
+                        "example": "Marquez|Jimenez|Arian Daniel|Hijo|50"
+                    },
+                    "porcentajeTotal": {
+                        "pattern": "^(50|100|120|150|200)$",
+                        "type": "string",
+                        "description": "Porcentaje Total.",
+                        "example": "100"
+                    },
+                    "fechaVenta": {
+                        "type": "string",
+                        "description": "Fecha de Venta.",
+                        "format": "date",
+                        "example": "0018-06-15"
+                    },
+                    "modalidadPago": {
+                        "pattern": "^(DEBITO|CREDITO)$",
+                        "type": "string",
+                        "description": "Modalidad de Pago.",
+                        "example": "DEBITO"
+                    },
+                    "beneficiarios": {
+                        "pattern": "^(herederos|otros)$",
+                        "type": "string",
+                        "description": "Beneficiarios del Seguro.",
+                        "example": "herederos"
+                    },
+                    "numeroTarjeta": {
+                        "pattern": "^\\d{16}$",
+                        "type": "string",
+                        "description": "Numero de Tarjeta.",
+                        "example": "4111222233334444"
+                    },
+                    "usoAdicional": {
+                        "pattern": "^(SI|NO)$",
+                        "type": "string",
+                        "description": "Usos Adicionales.",
+                        "example": "SI"
+                    },
+                    "frecuenciaPago": {
+                        "pattern": "^(1|6|12)$",
+                        "type": "string",
+                        "description": "Frecuencia de Pago.",
+                        "example": "12"
+                    },
+                    "codigoProducto": {
+                        "type": "string",
+                        "description": "Codigo del producto.",
+                        "example": "831"
+                    }
+                }
+            },
+            "NotificationRequest": {
+                "type": "object",
+                "properties": {
+                    "datos": {
+                        "type": "string",
+                        "description": "contiene los datos del Request de cada operacion",
+                        "example": "43"
+                    }
+                },
+                "description": "Wrapper que envuelve los Bodies de los End-Points"
+            },
+            "AnswerInvestmentTest": {
+                "type": "object",
+                "properties": {
+                    "textoPregunta": {
+                        "type": "string",
+                        "description": "Pregunta del Test de Inversion",
+                        "example": "¿Cuanto invertiria usted?"
+                    },
+                    "codigoPregunta": {
+                        "type": "integer",
+                        "description": "Codigo de la Pregunta.",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "letraRespuesta": {
+                        "type": "string",
+                        "description": "Letra de la respuesta.",
+                        "example": "a"
+                    }
+                },
+                "description": "AnswerInvestmentTest model"
+            },
+            "GeneratePolicyApplicationFileRequest": {
+                "type": "object",
+                "properties": {
+                    "numeroSolicitud": {
+                        "type": "string",
+                        "description": "Numero de Solicitud.",
+                        "example": "678456"
+                    },
+                    "nombres": {
+                        "type": "string",
+                        "description": "Nombres.",
+                        "example": "JOSE MARIANO"
+                    },
+                    "apellidoPaterno": {
+                        "type": "string",
+                        "description": "Apellido Paterno.",
+                        "example": "PEREZ"
+                    },
+                    "apellidoMaterno": {
+                        "type": "string",
+                        "description": "Apellido Materno.",
+                        "example": "SANCHEZ"
+                    },
+                    "numeroDocumento": {
+                        "type": "string",
+                        "description": "Numero de Documento.",
+                        "example": "75201182"
+                    },
+                    "fechaNacimiento": {
+                        "type": "string",
+                        "description": "Fecha de Nacimiento.",
+                        "format": "date",
+                        "example": "1999-12-10"
+                    },
+                    "sexo": {
+                        "type": "string",
+                        "description": "Sexo.",
+                        "example": "Masculino"
+                    },
+                    "numeroTelefono": {
+                        "type": "string",
+                        "description": "Numero de Telefono.",
+                        "example": "984340950"
+                    },
+                    "correoElectronico": {
+                        "type": "string",
+                        "description": "Correo Electronico.",
+                        "example": "sample@sample.com"
+                    },
+                    "direccionFisica": {
+                        "type": "string",
+                        "description": "Direccion Fisica.",
+                        "example": "Av. surco 123 - La molina"
+                    },
+                    "peso": {
+                        "type": "number",
+                        "description": "Peso.",
+                        "format": "double",
+                        "example": 58.5
+                    },
+                    "talla": {
+                        "type": "string",
+                        "description": "Talla.",
+                        "example": "1.74"
+                    },
+                    "obligacionFiscal": {
+                        "type": "boolean",
+                        "description": "Obligacion fiscal / Tributaria.",
+                        "example": true
+                    },
+                    "pais": {
+                        "type": "string",
+                        "description": "Pais.",
+                        "example": "Perú"
+                    },
+                    "sumaAsegurada": {
+                        "type": "number",
+                        "description": "Suma Asegurada.",
+                        "format": "double",
+                        "example": 10000.0
+                    },
+                    "primaComercial": {
+                        "type": "number",
+                        "description": "Prima Comercial.",
+                        "format": "double",
+                        "example": 10.0
+                    },
+                    "primaExcedente": {
+                        "type": "number",
+                        "description": "Prima Excedente.",
+                        "format": "double",
+                        "example": 13.0
+                    },
+                    "primaTotal": {
+                        "type": "number",
+                        "description": "Prima Total.",
+                        "format": "double",
+                        "example": 23.0
+                    },
+                    "frecuenciaPago": {
+                        "type": "string",
+                        "description": "Frecuencia de Pago.",
+                        "example": "mensual"
+                    },
+                    "fondoInversionCi": {
+                        "type": "string",
+                        "description": "Fondo Inversion CI.",
+                        "example": "Controlado"
+                    },
+                    "fondoInversionCe": {
+                        "type": "string",
+                        "description": "Fondo Inversion CE.",
+                        "example": "Controlado"
+                    },
+                    "metodoPago": {
+                        "type": "string",
+                        "description": "Metodo Pago.",
+                        "example": "DEBITO"
+                    },
+                    "numero": {
+                        "type": "string",
+                        "description": "Numero Tarjeta/Cuenta.",
+                        "example": "9870-3472-1287-3234"
+                    },
+                    "aceptaEnvioOfertas": {
+                        "type": "boolean",
+                        "description": "Acepta Envio de Ofertas.",
+                        "example": true
+                    },
+                    "fechaVenta": {
+                        "type": "string",
+                        "description": "Fecha de Venta.",
+                        "format": "date"
+                    },
+                    "nombreProducto": {
+                        "type": "string",
+                        "description": "Nombre del Producto.",
+                        "example": "Vida Inversion Base"
+                    },
+                    "respuestasTestInversion": {
+                        "type": "array",
+                        "description": "Lista de respuestas de Test de Inversion",
+                        "items": {
+                            "$ref": "#/components/schemas/AnswerInvestmentTest"
+                        }
+                    }
+                },
+                "description": "Contiene los datos para la generacion del PDF de solicitud de poliza"
+            },
+            "SendQuotationVdtRequest": {
+                "required": [
+                    "correo",
+                    "cuotaMensual",
+                    "frecuenciaPago",
+                    "montoRetiro",
+                    "nombre",
+                    "numeroCotizacion",
+                    "periodoProteccion",
+                    "porcentajeRetorno",
+                    "sumaAsegurada"
+                ],
+                "type": "object",
+                "properties": {
+                    "nombre": {
+                        "type": "string",
+                        "description": "Nombre del contratante.",
+                        "example": "Pedro"
+                    },
+                    "sumaAsegurada": {
+                        "maximum": 500000,
+                        "minimum": 100000,
+                        "type": "integer",
+                        "description": "Suma asegurada de la cobertura principal.",
+                        "format": "int32",
+                        "example": 100000
+                    },
+                    "numeroCotizacion": {
+                        "type": "string",
+                        "description": "Numero de la cotizacion.",
+                        "example": "3464335"
+                    },
+                    "periodoProteccion": {
+                        "pattern": "^(5|7|10|12|15|20)$",
+                        "type": "string",
+                        "description": "Periodo de cobertura del producto en años.",
+                        "example": "20"
+                    },
+                    "frecuenciaPago": {
+                        "pattern": "^(1|6|12)$",
+                        "type": "string",
+                        "description": "Frecuencia de pago del producto.",
+                        "example": "1"
+                    },
+                    "porcentajeRetorno": {
+                        "pattern": "^(50|100|120|150|200)$",
+                        "type": "string",
+                        "description": "Porcentaje de retorno al final del periodo.",
+                        "example": "100"
+                    },
+                    "montoRetiro": {
+                        "type": "number",
+                        "description": "Monto de retiro al final del periodo.",
+                        "format": "double",
+                        "example": 10400
+                    },
+                    "cuotaMensual": {
+                        "type": "number",
+                        "description": "Prima mensual del producto.",
+                        "format": "double",
+                        "example": 10.54
+                    },
+                    "correo": {
+                        "type": "string",
+                        "description": "Email del cliente.",
+                        "example": "josuecd98@outlook.com"
+                    },
+                    "fechaCotizacion": {
+                        "type": "string",
+                        "description": "Fecha de la Cotizacion.",
+                        "format": "date"
+                    }
+                }
+            },
+            "QuotationFile": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "numeroDocumento": {
+                        "type": "string"
+                    },
+                    "primaComercial": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "sumaAsegurada": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "primerNombre": {
+                        "type": "string"
+                    },
+                    "nombreCompleto": {
+                        "type": "string"
+                    },
+                    "fondoInversion": {
+                        "type": "string"
+                    },
+                    "perfilInversion": {
+                        "type": "string"
+                    },
+                    "primaExcedentes": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "totalMensual": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "contenido": {
+                        "type": "string"
+                    },
+                    "nombreArchivo": {
+                        "type": "string"
+                    }
+                },
+                "description": "Archivo de Cotizacion."
+            }
+        }
+    }
+}
